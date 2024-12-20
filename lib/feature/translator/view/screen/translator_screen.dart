@@ -6,13 +6,15 @@ import 'package:translator/feature/translator/view/widgets/translated_text_secti
 import 'package:translator/feature/translator/view_model/translator_view_model.dart';
 
 class TranslatorScreen extends StatelessWidget {
+  const TranslatorScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => TranslatorViewModel()..loadLanguages(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'Text Translation',
             style: TextStyle(color: Colors.white),
           ),
@@ -21,7 +23,7 @@ class TranslatorScreen extends StatelessWidget {
         body: Consumer<TranslatorViewModel>(
           builder: (context, viewModel, _) {
             if (viewModel.isLoading) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(
                     color: Color.fromRGBO(237, 82, 62, 0.987)),
               );
@@ -34,11 +36,11 @@ class TranslatorScreen extends StatelessWidget {
                   Divider(
                     color: Colors.white.withOpacity(.4),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   LanguageSelectionRow(viewModel: viewModel),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   TextFieldSection(viewModel: viewModel),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   TranslatedTextSection(viewModel: viewModel),
                 ],
               ),

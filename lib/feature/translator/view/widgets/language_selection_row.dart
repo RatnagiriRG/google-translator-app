@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:translator/feature/translator/view/screen/translator_screen.dart';
 import 'package:translator/feature/translator/view/widgets/language_selector.dart';
 import 'package:translator/feature/translator/view/widgets/language_selector_modal.dart';
 import 'package:translator/feature/translator/view_model/translator_view_model.dart';
@@ -7,7 +6,7 @@ import 'package:translator/feature/translator/view_model/translator_view_model.d
 class LanguageSelectionRow extends StatelessWidget {
   final TranslatorViewModel viewModel;
 
-  LanguageSelectionRow({required this.viewModel});
+  const LanguageSelectionRow({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +18,9 @@ class LanguageSelectionRow extends StatelessWidget {
             onTap: () => _showLanguageSelector(context, viewModel, true),
           ),
         ),
-        SizedBox(width: 16.0),
-        Icon(Icons.swap_horiz, color: Colors.white),
-        SizedBox(width: 16.0),
+        const SizedBox(width: 16.0),
+        const Icon(Icons.swap_horiz, color: Colors.white),
+        const SizedBox(width: 16.0),
         Expanded(
           child: LanguageSelector(
             title: viewModel.toLanguage?.name ?? "To",
@@ -37,7 +36,7 @@ class LanguageSelectionRow extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.grey[900],
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
       builder: (context) {

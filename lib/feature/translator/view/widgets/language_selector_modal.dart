@@ -5,8 +5,8 @@ class LanguageSelectorModal extends StatelessWidget {
   final TranslatorViewModel viewModel;
   final bool isFromLanguage;
 
-  LanguageSelectorModal(
-      {required this.viewModel, required this.isFromLanguage});
+  const LanguageSelectorModal(
+      {super.key, required this.viewModel, required this.isFromLanguage});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class LanguageSelectorModal extends StatelessWidget {
           child: TextField(
             decoration: InputDecoration(
               hintText: "Search languages",
-              hintStyle: TextStyle(color: Colors.white60),
+              hintStyle: const TextStyle(color: Colors.white60),
               filled: true,
               fillColor: Colors.grey[800],
               border: OutlineInputBorder(
@@ -36,7 +36,7 @@ class LanguageSelectorModal extends StatelessWidget {
                 borderSide: BorderSide.none,
               ),
             ),
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
             onChanged: viewModel.filterLanguages,
           ),
         ),
@@ -59,11 +59,11 @@ class LanguageSelectorModal extends StatelessWidget {
                 },
                 title: Container(
                   height: 60,
-                  padding:
-                      EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 16.0),
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? Color.fromRGBO(237, 82, 62, 0.987)
+                        ? const Color.fromRGBO(237, 82, 62, 0.987)
                         : Colors.black,
                     borderRadius: BorderRadius.circular(8.0),
                   ),
@@ -73,7 +73,7 @@ class LanguageSelectorModal extends StatelessWidget {
                     children: [
                       Text(
                         language.name,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ],
                   ),

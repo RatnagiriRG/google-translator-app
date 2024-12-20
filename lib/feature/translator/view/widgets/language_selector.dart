@@ -12,7 +12,7 @@ class LanguageSelector extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: 55,
-        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
         decoration: BoxDecoration(
           color: Colors.grey[900],
           borderRadius: BorderRadius.circular(8.0),
@@ -22,7 +22,7 @@ class LanguageSelector extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
             // Icon(Icons.keyboard_arrow_down, color: Colors.white),
           ],

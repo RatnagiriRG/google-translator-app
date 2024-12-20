@@ -4,7 +4,7 @@ import 'package:translator/feature/translator/view_model/translator_view_model.d
 class TextFieldSection extends StatelessWidget {
   final TranslatorViewModel viewModel;
 
-  TextFieldSection({required this.viewModel});
+  const TextFieldSection({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -19,24 +19,24 @@ class TextFieldSection extends StatelessWidget {
             ),
             Text(
               "(${viewModel.fromLanguage?.name ?? "-"})",
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
           ],
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         TextField(
           maxLines: 5,
           decoration: InputDecoration(
-            fillColor: Colors.grey[800],
+            fillColor: Colors.grey[900],
             filled: true,
             hintText: "Enter text...",
-            hintStyle: TextStyle(color: Colors.white60),
+            hintStyle: const TextStyle(color: Colors.white60),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.0),
               borderSide: BorderSide.none,
             ),
           ),
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
           onChanged: viewModel.translate,
         ),
       ],

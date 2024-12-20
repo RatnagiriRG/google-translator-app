@@ -4,16 +4,11 @@ class Language {
 
   Language({required this.code, required this.name});
 
-  /// Factory constructor to parse JSON into a Language object
   factory Language.fromJson(Map<String, dynamic> json) {
     return Language(
-      code: json['language'], // The language code from the API response
-      name: json['name'] ??
-          json['language'], // Fallback to 'language' if 'name' is null
-    );
+        code: json['language'], name: json['name'] ?? json['language']);
   }
 
-  /// Method to convert Language object back to JSON
   Map<String, dynamic> toJson() {
     return {
       'language': code,
