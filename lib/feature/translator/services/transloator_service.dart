@@ -1,31 +1,36 @@
 import 'dart:developer';
-
 import 'package:translator/configs/core/api_service.dart';
 import 'package:translator/feature/translator/model/translator_model.dart';
 
 class TranslatorService {
   final ApiService _apiService = ApiService();
 
+  /// Fetch supported languages
   Future<List<Language>> fetchLanguages() async {
-    final data = await _apiService.get('languages');
-
-    return (data['data']['languages'] as List)
-        .map((lang) => Language.fromJson(lang))
-        .toList();
+    try {
+      final data = await _apiService.get('languages');
+      return (data['languages'] as List)
+          .map((lang) => Language.fromJson(lang))
+          .toList();
+    } catch (e) {
+      log('Error fetching languages: $e');
+      throw Exception('Failed to load languages');
+    }
   }
 
+  /// Translate text
   Future<String> translateText(String text, String from, String to) async {
     try {
-      final data = await _apiService.post({
+      final body = {
         'q': text,
         'source': from,
         'target': to,
-        'format': 'text',
-      });
+      };
 
-      log('Response: ${data.toString()}');
+      final data = await _apiService.post(body);
 
-      // Ensure the response structure is correct
+      log('Translation Response: ${data.toString()}');
+
       if (data['data'] != null &&
           data['data']['translations'] != null &&
           data['data']['translations'].isNotEmpty) {
@@ -34,7 +39,7 @@ class TranslatorService {
         throw Exception('Unexpected response structure: ${data.toString()}');
       }
     } catch (e) {
-      log('Error: $e');
+      log('Translation Error: $e');
       throw Exception('Translation failed: $e');
     }
   }
