@@ -5,31 +5,49 @@ import 'package:translator/feature/translator/view/widgets/text_field_section.da
 import 'package:translator/feature/translator/view/widgets/translated_text_section.dart';
 import 'package:translator/feature/translator/view_model/translator_view_model.dart';
 
-class TranslatorScreen extends StatelessWidget {
+class TranslatorScreen extends StatefulWidget {
   const TranslatorScreen({super.key});
 
   @override
+  State<TranslatorScreen> createState() => _TranslatorScreenState();
+}
+
+class _TranslatorScreenState extends State<TranslatorScreen> {
+  late TranslatorViewModel translatorViewModel;
+
+  @override
+  void initState() {
+    translatorViewModel = context.read<TranslatorViewModel>();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        translatorViewModel.loadLanguages();
+      },
+    );
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => TranslatorViewModel()..loadLanguages(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Text Translation',
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.black,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Text Translation',
+          style: TextStyle(color: Colors.white),
         ),
-        body: Consumer<TranslatorViewModel>(
-          builder: (context, viewModel, _) {
-            if (viewModel.isLoading) {
-              return const Center(
-                child: CircularProgressIndicator(
-                    color: Color.fromRGBO(237, 82, 62, 0.987)),
-              );
-            }
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
+        backgroundColor: Colors.black,
+      ),
+      body: Consumer<TranslatorViewModel>(
+        builder: (context, viewModel, _) {
+          if (viewModel.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(
+                  color: Color.fromRGBO(237, 82, 62, 0.987)),
+            );
+          }
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -44,11 +62,11 @@ class TranslatorScreen extends StatelessWidget {
                   TranslatedTextSection(viewModel: viewModel),
                 ],
               ),
-            );
-          },
-        ),
-        backgroundColor: Colors.black,
+            ),
+          );
+        },
       ),
+      backgroundColor: Colors.black,
     );
   }
 }

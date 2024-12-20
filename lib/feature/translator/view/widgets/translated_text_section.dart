@@ -36,7 +36,7 @@ class TranslatedTextSection extends StatelessWidget {
             viewModel.translatedText.isNotEmpty
                 ? viewModel.translatedText
                 : "Translation will appear here...",
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white.withOpacity(.6)),
           ),
         ),
       ],
