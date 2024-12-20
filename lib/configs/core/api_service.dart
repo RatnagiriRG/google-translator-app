@@ -7,7 +7,7 @@ class ApiService {
   static const Map<String, String> headers = {
     'X-RapidAPI-Key': '38107f95d0mshe113d969ee46dd8p1d5160jsn606caa6be4c4',
     'X-RapidAPI-Host': 'deep-translate1.p.rapidapi.com',
-    'Content-Type': 'application/json', // Updated to JSON content type
+    'Content-Type': 'application/json',
   };
 
   /// GET request
@@ -18,16 +18,12 @@ class ApiService {
         headers: headers,
       );
 
-      // log('GET Response Status: ${response.statusCode}');
-      // log('GET Response Body: ${response.body}');
-
       if (response.statusCode == 200) {
         return json.decode(response.body);
       } else {
         throw Exception('Failed to load data: ${response.body}');
       }
     } catch (e) {
-      // log('GET Exception: $e');
       throw Exception('Failed to load data');
     }
   }
@@ -41,17 +37,12 @@ class ApiService {
         body: json.encode(body),
       );
 
-      // log('POST Response Status: ${response.statusCode}');
-      // log('POST Response Body: ${response.body}');
-
       if (response.statusCode == 200) {
         return json.decode(response.body);
       } else {
-        // log('POST Error: ${response.statusCode} - ${response.body}');
         throw Exception('Failed to post data: ${response.body}');
       }
     } catch (e) {
-      // log('POST Exception: $e');
       throw Exception('Failed to post data');
     }
   }
