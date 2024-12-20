@@ -28,19 +28,17 @@ class TranslatorService {
       };
 
       final data = await _apiService.post(body);
-
-      log('Translation Response: ${data.toString()}');
-
       if (data['data'] != null &&
           data['data']['translations'] != null &&
-          data['data']['translations'].isNotEmpty) {
-        return data['data']['translations'][0]['translatedText'];
+          data['data']['translations'] is Map &&
+          data['data']['translations']['translatedText'] != null) {
+        return data['data']['translations']['translatedText'];
       } else {
         throw Exception('Unexpected response structure: ${data.toString()}');
       }
     } catch (e) {
       log('Translation Error: $e');
-      throw Exception('Translation failed: $e');
+      return 'Error: $e';
     }
   }
 }

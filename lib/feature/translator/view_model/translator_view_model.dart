@@ -61,10 +61,13 @@ class TranslatorViewModel extends ChangeNotifier {
 
   Future<void> translate(String text) async {
     if (_fromLanguage == null || _toLanguage == null || text.isEmpty) {
+      _translatedText = 'Please select languages and enter text to translate.';
+      notifyListeners();
       return;
     }
 
     _inputText = text;
+    _translatedText = 'Translating...';
     notifyListeners();
 
     try {
@@ -74,6 +77,7 @@ class TranslatorViewModel extends ChangeNotifier {
         _toLanguage!.code,
       );
     } catch (error) {
+      _translatedText = 'Error: Failed to translate. Please try again later.';
       debugPrint('Error translating text: $error');
     } finally {
       notifyListeners();
