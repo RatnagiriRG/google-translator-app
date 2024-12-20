@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:translator/configs/core/api_service.dart';
 import 'package:translator/feature/translator/model/translator_model.dart';
 
@@ -13,7 +12,6 @@ class TranslatorService {
           .map((lang) => Language.fromJson(lang))
           .toList();
     } catch (e) {
-      log('Error fetching languages: $e');
       throw Exception('Failed to load languages');
     }
   }
@@ -37,7 +35,6 @@ class TranslatorService {
         throw Exception('Unexpected response structure: ${data.toString()}');
       }
     } catch (e) {
-      log('Translation Error: $e');
       return 'Error: $e';
     }
   }

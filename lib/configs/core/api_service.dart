@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:http/http.dart' as http;
 
 class ApiService {
@@ -19,8 +18,8 @@ class ApiService {
         headers: headers,
       );
 
-      log('GET Response Status: ${response.statusCode}');
-      log('GET Response Body: ${response.body}');
+      // log('GET Response Status: ${response.statusCode}');
+      // log('GET Response Body: ${response.body}');
 
       if (response.statusCode == 200) {
         return json.decode(response.body);
@@ -28,7 +27,7 @@ class ApiService {
         throw Exception('Failed to load data: ${response.body}');
       }
     } catch (e) {
-      log('GET Exception: $e');
+      // log('GET Exception: $e');
       throw Exception('Failed to load data');
     }
   }
@@ -39,20 +38,20 @@ class ApiService {
       final response = await http.post(
         Uri.parse(baseUrl),
         headers: headers,
-        body: json.encode(body), // Encode body as JSON
+        body: json.encode(body),
       );
 
-      log('POST Response Status: ${response.statusCode}');
-      log('POST Response Body: ${response.body}');
+      // log('POST Response Status: ${response.statusCode}');
+      // log('POST Response Body: ${response.body}');
 
       if (response.statusCode == 200) {
         return json.decode(response.body);
       } else {
-        log('POST Error: ${response.statusCode} - ${response.body}');
+        // log('POST Error: ${response.statusCode} - ${response.body}');
         throw Exception('Failed to post data: ${response.body}');
       }
     } catch (e) {
-      log('POST Exception: $e');
+      // log('POST Exception: $e');
       throw Exception('Failed to post data');
     }
   }

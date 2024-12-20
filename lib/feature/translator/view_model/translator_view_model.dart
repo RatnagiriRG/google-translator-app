@@ -1,4 +1,3 @@
-// Translator ViewModel Implementation
 import 'package:flutter/material.dart';
 import 'package:translator/feature/translator/model/translator_model.dart';
 import 'package:translator/feature/translator/services/transloator_service.dart';
