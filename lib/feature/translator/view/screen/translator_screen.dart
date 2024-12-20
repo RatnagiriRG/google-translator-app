@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:translator/feature/translator/model/translator_model.dart';
+import 'package:translator/feature/translator/view/widgets/language_selection_row.dart';
+import 'package:translator/feature/translator/view/widgets/text_field_section.dart';
+import 'package:translator/feature/translator/view/widgets/translated_text_section.dart';
 import 'package:translator/feature/translator/view_model/translator_view_model.dart';
 
 class TranslatorScreen extends StatelessWidget {
@@ -20,7 +22,8 @@ class TranslatorScreen extends StatelessWidget {
           builder: (context, viewModel, _) {
             if (viewModel.isLoading) {
               return Center(
-                child: CircularProgressIndicator(color: Colors.black),
+                child: CircularProgressIndicator(
+                    color: Color.fromRGBO(237, 82, 62, 0.987)),
               );
             }
             return Padding(
@@ -28,6 +31,10 @@ class TranslatorScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Divider(
+                    color: Colors.white.withOpacity(.4),
+                  ),
+                  SizedBox(height: 16.0),
                   LanguageSelectionRow(viewModel: viewModel),
                   SizedBox(height: 16.0),
                   TextFieldSection(viewModel: viewModel),
@@ -40,225 +47,6 @@ class TranslatorScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.black,
       ),
-    );
-  }
-}
-
-class LanguageSelectionRow extends StatelessWidget {
-  final TranslatorViewModel viewModel;
-
-  LanguageSelectionRow({required this.viewModel});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: LanguageSelector(
-            title: viewModel.fromLanguage?.name ?? "From",
-            onTap: () => _showLanguageSelector(context, viewModel, true),
-          ),
-        ),
-        SizedBox(width: 16.0),
-        Icon(Icons.swap_horiz, color: Colors.white),
-        SizedBox(width: 16.0),
-        Expanded(
-          child: LanguageSelector(
-            title: viewModel.toLanguage?.name ?? "To",
-            onTap: () => _showLanguageSelector(context, viewModel, false),
-          ),
-        ),
-      ],
-    );
-  }
-
-  void _showLanguageSelector(BuildContext context,
-      TranslatorViewModel viewModel, bool isFromLanguage) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.grey[900],
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
-      ),
-      builder: (context) {
-        return LanguageSelectorModal(
-          viewModel: viewModel,
-          isFromLanguage: isFromLanguage,
-        );
-      },
-    );
-  }
-}
-
-class LanguageSelector extends StatelessWidget {
-  final String title;
-  final VoidCallback onTap;
-
-  LanguageSelector({required this.title, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-        decoration: BoxDecoration(
-          color: Colors.grey[900],
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: TextStyle(color: Colors.white),
-            ),
-            Icon(Icons.keyboard_arrow_down, color: Colors.white),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class TextFieldSection extends StatelessWidget {
-  final TranslatorViewModel viewModel;
-
-  TextFieldSection({required this.viewModel});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Translate From (${viewModel.fromLanguage?.name ?? "-"})",
-          style: TextStyle(color: Colors.white),
-        ),
-        SizedBox(height: 8.0),
-        TextField(
-          maxLines: 5,
-          decoration: InputDecoration(
-            fillColor: Colors.grey[800],
-            filled: true,
-            hintText: "Enter text...",
-            hintStyle: TextStyle(color: Colors.white60),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              borderSide: BorderSide.none,
-            ),
-          ),
-          style: TextStyle(color: Colors.white),
-          onChanged: viewModel.translate,
-        ),
-      ],
-    );
-  }
-}
-
-class TranslatedTextSection extends StatelessWidget {
-  final TranslatorViewModel viewModel;
-
-  TranslatedTextSection({required this.viewModel});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Translate To (${viewModel.toLanguage?.name ?? "-"})",
-          style: TextStyle(color: Colors.white),
-        ),
-        SizedBox(height: 8.0),
-        Container(
-          padding: EdgeInsets.all(16.0),
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Colors.grey[900],
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Text(
-            viewModel.translatedText.isNotEmpty
-                ? viewModel.translatedText
-                : "Translation will appear here...",
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class LanguageSelectorModal extends StatelessWidget {
-  final TranslatorViewModel viewModel;
-  final bool isFromLanguage;
-
-  LanguageSelectorModal(
-      {required this.viewModel, required this.isFromLanguage});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: TextField(
-            decoration: InputDecoration(
-              hintText: "Search languages",
-              hintStyle: TextStyle(color: Colors.white60),
-              filled: true,
-              fillColor: Colors.grey[800],
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide.none,
-              ),
-            ),
-            style: TextStyle(color: Colors.white),
-            onChanged: viewModel.filterLanguages,
-          ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: viewModel.filteredLanguages.length,
-            itemBuilder: (context, index) {
-              final language = viewModel.filteredLanguages[index];
-              final isSelected =
-                  (isFromLanguage && language == viewModel.fromLanguage) ||
-                      (!isFromLanguage && language == viewModel.toLanguage);
-              return ListTile(
-                onTap: () {
-                  if (isFromLanguage) {
-                    viewModel.selectFromLanguage(language);
-                  } else {
-                    viewModel.selectToLanguage(language);
-                  }
-                  Navigator.pop(context);
-                },
-                title: Container(
-                  height: 60,
-                  padding:
-                      EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                  decoration: BoxDecoration(
-                    color: isSelected ? Colors.orange : Colors.black,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        language.name,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      ],
     );
   }
 }
