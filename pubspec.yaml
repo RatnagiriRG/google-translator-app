@@ -39,6 +39,10 @@ dependencies:
   provider: ^6.1.2
   shared_preferences: ^2.3.4
   flutter_spinkit: ^5.2.1
+  connectivity_plus: ^6.1.1
+  fluttertoast: ^8.2.10
+  flutter_svg: ^2.0.16
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
@@ -63,9 +67,12 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/media/
+    - assets/media/svg/
+    - assets/media/image/
+    # - assets/media/video/
+    # - assets/media/lottie/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
