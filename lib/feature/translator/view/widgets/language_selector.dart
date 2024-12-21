@@ -24,7 +24,6 @@ class LanguageSelector extends StatelessWidget {
               title,
               style: const TextStyle(color: Colors.white),
             ),
-            // Icon(Icons.keyboard_arrow_down, color: Colors.white),
           ],
         ),
       ),

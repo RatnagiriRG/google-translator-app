@@ -26,20 +26,41 @@ class TextFieldSection extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 8.0),
-        TextField(
-          maxLines: 5,
-          decoration: InputDecoration(
-            fillColor: Colors.grey[900],
-            filled: true,
-            hintText: "Enter text...",
-            hintStyle: const TextStyle(color: Colors.white60),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              borderSide: BorderSide.none,
-            ),
+        Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: Colors.grey[900],
+            borderRadius: BorderRadius.circular(8.0),
           ),
-          style: const TextStyle(color: Colors.white),
-          onChanged: viewModel.translate,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextField(
+                controller: viewModel.textEditingController,
+                maxLines: 5,
+                maxLength: 2300, // Set the maximum character limit
+                decoration: const InputDecoration(
+                  counterText: "", // Hides the default counter
+                  hintText: "Enter text...",
+                  hintStyle: TextStyle(color: Colors.white60),
+                  border: InputBorder.none, // Remove the border
+                ),
+                style: TextStyle(color: Colors.white.withOpacity(.6)),
+                onChanged: (text) => viewModel.updateCharacterCount(text),
+              ),
+              const SizedBox(height: 8.0),
+              Divider(color: Colors.white.withOpacity(.4)),
+              const SizedBox(height: 8.0),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "${viewModel.characterCount}/2300",
+                  style: TextStyle(
+                      color: Colors.white.withOpacity(.4), fontSize: 12.0),
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );

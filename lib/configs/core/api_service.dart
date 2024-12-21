@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:translator/configs/constants/app_constants.dart';
 
 class ApiService {
   static const String baseUrl =
       'https://deep-translate1.p.rapidapi.com/language/translate/v2';
   static const Map<String, String> headers = {
-    'X-RapidAPI-Key': '38107f95d0mshe113d969ee46dd8p1d5160jsn606caa6be4c4',
+    'X-RapidAPI-Key': AppConstants.rapidAPIKey,
     'X-RapidAPI-Host': 'deep-translate1.p.rapidapi.com',
     'Content-Type': 'application/json',
   };

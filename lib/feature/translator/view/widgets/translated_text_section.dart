@@ -27,18 +27,39 @@ class TranslatedTextSection extends StatelessWidget {
         ),
         const SizedBox(height: 8.0),
         Container(
-          height: 150,
+          height: 200,
           padding: const EdgeInsets.all(16.0),
           width: double.infinity,
           decoration: BoxDecoration(
             color: Colors.grey[900],
             borderRadius: BorderRadius.circular(8.0),
           ),
-          child: Text(
-            viewModel.translatedText.isNotEmpty
-                ? viewModel.translatedText
-                : "Translation will appear here...",
-            style: TextStyle(color: Colors.white.withOpacity(.6)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Text(
+                    viewModel.translatedText.isNotEmpty
+                        ? viewModel.translatedText
+                        : "Translation will appear here...",
+                    style: TextStyle(color: Colors.white.withOpacity(.6)),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8.0),
+              Divider(
+                color: Colors.white.withOpacity(0.4),
+              ),
+              const SizedBox(height: 8.0),
+              Text(
+                "${viewModel.translatedTextLetterCount}/2300 ",
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.4),
+                  fontSize: 12.0,
+                ),
+              ),
+            ],
           ),
         ),
       ],
