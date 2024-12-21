@@ -18,7 +18,9 @@ class TextFieldSection extends StatelessWidget {
               style: TextStyle(color: Colors.white.withOpacity(.4)),
             ),
             Text(
-              "(${viewModel.fromLanguage?.name ?? "-"})",
+              viewModel.fromLanguage?.name != null
+                  ? "( ${viewModel.fromLanguage?.name ?? " "} )"
+                  : "",
               style: const TextStyle(color: Colors.white),
             ),
           ],

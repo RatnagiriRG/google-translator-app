@@ -12,6 +12,7 @@ class TranslatorViewModel extends ChangeNotifier {
   Language? _toLanguage;
   String _inputText = '';
   String _translatedText = '';
+  String _queryText = "";
   bool _isLoading = true;
 
   List<Language> get languages => _languages;
@@ -21,6 +22,7 @@ class TranslatorViewModel extends ChangeNotifier {
   String get inputText => _inputText;
   String get translatedText => _translatedText;
   bool get isLoading => _isLoading;
+  String get queryText => _queryText;
 
   Future<void> loadLanguages(BuildContext context) async {
     _isLoading = true;
@@ -43,7 +45,9 @@ class TranslatorViewModel extends ChangeNotifier {
   }
 
   void filterLanguages(String query) {
+    _queryText = query;
     if (query.isEmpty) {
+      _filteredLanguages = [];
       _filteredLanguages = List.from(_languages);
     } else {
       _filteredLanguages = _languages
@@ -61,6 +65,13 @@ class TranslatorViewModel extends ChangeNotifier {
 
   void selectToLanguage(Language language) {
     _toLanguage = language;
+    notifyListeners();
+  }
+
+  void swapLanguages() {
+    final tempLanguage = _fromLanguage;
+    _fromLanguage = _toLanguage;
+    _toLanguage = tempLanguage;
     notifyListeners();
   }
 
@@ -87,5 +98,12 @@ class TranslatorViewModel extends ChangeNotifier {
     } finally {
       notifyListeners();
     }
+  }
+
+  void clearFilter() {
+    _filteredLanguages = [];
+    _queryText = "";
+    filterLanguages("");
+    notifyListeners();
   }
 }

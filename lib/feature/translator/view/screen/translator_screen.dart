@@ -13,7 +13,7 @@ class TranslatorScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Text Translation',
+          'Translator',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.black,

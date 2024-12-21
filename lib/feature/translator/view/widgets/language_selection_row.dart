@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:translator/configs/components/bouncing_button_widget.dart';
 import 'package:translator/feature/translator/view/widgets/language_selector.dart';
 import 'package:translator/feature/translator/view/widgets/language_selector_modal.dart';
 import 'package:translator/feature/translator/view_model/translator_view_model.dart';
@@ -13,18 +14,33 @@ class LanguageSelectionRow extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: LanguageSelector(
-            title: viewModel.fromLanguage?.name ?? "From",
-            onTap: () => _showLanguageSelector(context, viewModel, true),
+          child: BouncingButtonWidget(
+            child: LanguageSelector(
+              title: viewModel.fromLanguage?.name ?? "From",
+              onTap: () {
+                viewModel.clearFilter();
+                _showLanguageSelector(context, viewModel, true);
+              },
+            ),
           ),
         ),
         const SizedBox(width: 16.0),
-        const Icon(Icons.swap_horiz, color: Colors.white),
+        BouncingButtonWidget(
+          child: GestureDetector(
+              onTap: () {
+                viewModel.swapLanguages();
+              },
+              child: const Icon(Icons.swap_horiz, color: Colors.white)),
+        ),
         const SizedBox(width: 16.0),
         Expanded(
-          child: LanguageSelector(
-            title: viewModel.toLanguage?.name ?? "To",
-            onTap: () => _showLanguageSelector(context, viewModel, false),
+          child: BouncingButtonWidget(
+            child: LanguageSelector(
+                title: viewModel.toLanguage?.name ?? "To",
+                onTap: () {
+                  viewModel.clearFilter();
+                  _showLanguageSelector(context, viewModel, false);
+                }),
           ),
         ),
       ],

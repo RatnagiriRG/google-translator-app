@@ -18,7 +18,9 @@ class TranslatedTextSection extends StatelessWidget {
               style: TextStyle(color: Colors.white.withOpacity(.4)),
             ),
             Text(
-              "(${viewModel.toLanguage?.name ?? "-"})",
+              viewModel.toLanguage?.name != null
+                  ? "( ${viewModel.toLanguage?.name ?? " "} )"
+                  : "",
               style: const TextStyle(color: Colors.white),
             ),
           ],

@@ -4,7 +4,7 @@ class LanguageSelector extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
 
-  LanguageSelector({required this.title, required this.onTap});
+  const LanguageSelector({super.key, required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

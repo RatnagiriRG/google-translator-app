@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Translator App',
       theme: ThemeData(primarySwatch: Colors.blue),
       navigatorKey: NavigationService.navigatorKey,
-      home: SplashScreen(),
+      home: const SplashScreen(),
       onGenerateRoute: RouteManager.generateRoute,
     );
   }
