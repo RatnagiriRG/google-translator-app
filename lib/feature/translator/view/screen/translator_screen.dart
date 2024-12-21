@@ -5,27 +5,8 @@ import 'package:translator/feature/translator/view/widgets/text_field_section.da
 import 'package:translator/feature/translator/view/widgets/translated_text_section.dart';
 import 'package:translator/feature/translator/view_model/translator_view_model.dart';
 
-class TranslatorScreen extends StatefulWidget {
+class TranslatorScreen extends StatelessWidget {
   const TranslatorScreen({super.key});
-
-  @override
-  State<TranslatorScreen> createState() => _TranslatorScreenState();
-}
-
-class _TranslatorScreenState extends State<TranslatorScreen> {
-  late TranslatorViewModel translatorViewModel;
-
-  @override
-  void initState() {
-    translatorViewModel = context.read<TranslatorViewModel>();
-    WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-        translatorViewModel.loadLanguages();
-      },
-    );
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

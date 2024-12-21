@@ -4,6 +4,7 @@ import 'package:translator/configs/multiprovider.dart';
 import 'package:translator/configs/routes/navigation_service.dart';
 import 'package:translator/configs/routes/routes_manager.dart';
 import 'package:translator/feature/noInternet/view_model/no_internet_view_model.dart';
+import 'package:translator/feature/splashScreen/view/splash_screen.dart';
 import 'package:translator/feature/translator/view/screen/translator_screen.dart';
 
 void main() {
@@ -33,7 +34,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Translator App',
       theme: ThemeData(primarySwatch: Colors.blue),
       navigatorKey: NavigationService.navigatorKey,
-      home: TranslatorScreen(),
+      home: SplashScreen(),
       onGenerateRoute: RouteManager.generateRoute,
     );
   }

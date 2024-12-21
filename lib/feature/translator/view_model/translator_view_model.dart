@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:translator/configs/routes/routes_name.dart';
 import 'package:translator/feature/translator/model/translator_model.dart';
 import 'package:translator/feature/translator/services/transloator_service.dart';
 
@@ -21,13 +22,18 @@ class TranslatorViewModel extends ChangeNotifier {
   String get translatedText => _translatedText;
   bool get isLoading => _isLoading;
 
-  Future<void> loadLanguages() async {
+  Future<void> loadLanguages(BuildContext context) async {
     _isLoading = true;
     notifyListeners();
 
     try {
       _languages = await _translatorService.fetchLanguages();
+
       _filteredLanguages = List.from(_languages);
+      if (_languages.isNotEmpty) {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushReplacementNamed(RoutesName.translatorPage);
+      }
     } catch (error) {
       debugPrint('Error loading languages: $error');
     } finally {
